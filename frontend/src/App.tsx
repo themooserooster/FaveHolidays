@@ -1,64 +1,70 @@
+import * as React from "react"
 import "./App.css"
-import { Counter } from "./features/counter/Counter"
-import { Quotes } from "./features/quotes/Quotes"
-import logo from "./logo.svg"
+import {
+  AppBar,
+  Box,
+  Button,
+  CssBaseline,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from "@mui/material"
+import MenuIcon from "@mui/icons-material/Menu"
+import ExploreIcon from "@mui/icons-material/Explore"
+import FavoriteIcon from "@mui/icons-material/Favorite"
+import { Explore } from "./features/exploreHolidays/Explore"
 
-export const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <Counter />
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <Quotes />
-      <span>
-        <span>Learn </span>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+export const App = () => {
+ 
+  const [openDrawer, setOpenDrawer] = React.useState(false);
+ 
+  return (<React.Fragment>
+    <CssBaseline />
+    <Box sx={{ flexGrow: 1 }}></Box>
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={() => {setOpenDrawer(!openDrawer)}}
         >
-          React
-        </a>
-        <span>, </span>
-        <a
-          className="App-link"
-          href="https://redux.js.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Redux
-        </a>
-        <span>, </span>
-        <a
-          className="App-link"
-          href="https://redux-toolkit.js.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Redux Toolkit
-        </a>
-        <span>, </span>
-        <a
-          className="App-link"
-          href="https://react-redux.js.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          React Redux
-        </a>
-        ,<span> and </span>
-        <a
-          className="App-link"
-          href="https://reselect.js.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Reselect
-        </a>
-      </span>
-    </header>
-  </div>
-)
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>My Favorite Holidays</Typography>
+        <Button color="inherit">Login</Button>
+      </Toolbar>
+    </AppBar>
+    <Drawer open={openDrawer} onClose={() => {setOpenDrawer(false)}}>
+      <Box sx={{ width: 250 }} role="presentation" onClick={() => {setOpenDrawer(false)}}>
+        <List>
+          <ListItem key="explore" disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ExploreIcon />
+              </ListItemIcon>
+              <ListItemText>Explore Holidays</ListItemText>
+            </ListItemButton>
+          </ListItem>
+          <ListItem key="explore" disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <FavoriteIcon />
+              </ListItemIcon>
+              <ListItemText>My Holidays</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Box>
+    </Drawer>
+    <Explore />
+  </React.Fragment>)
+}

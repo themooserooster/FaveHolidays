@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
+    "@mui/icons-material": "^7.0.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -35,6 +36,7 @@
     "@types/react-dom": "^19.1.1",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/eslint-plugin": "^1.1.39",
+    "axios": "^1.9.0",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
