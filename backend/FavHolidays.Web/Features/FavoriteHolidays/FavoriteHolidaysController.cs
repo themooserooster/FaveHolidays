@@ -3,14 +3,15 @@ using FavHolidays.Data.Entities;
 using FavHolidays.Web.Features.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FavHolidays.Web.Features.FavoriteHolidays;
 
-[ApiController]
-public class FavoriteHolidaysController(HolidaysContext holidaysContext, UserContext userContext):Controller  {
+[ApiController, Route("FavoriteHolidays")]
+public class FavoriteHolidaysController(HolidaysContext holidaysContext, IUserContext userContext):Controller  {
 
-    [HttpGet("FavoritesByCountryCode/{countryCode}")]
+    [HttpGet()]
+
+    [HttpGet("ByCountryCode/{countryCode}")]
     public async Task<ActionResult<IEnumerable<FavoriteHolidayDTO>>> GetFavoritesByCountryCode ([FromRoute]string countryCode) {
         var userFavorites = await holidaysContext.FavoriteHolidays
             .Where(h => h.Id == userContext.User.Id && h.HolidayCountryCode == countryCode)
@@ -24,7 +25,7 @@ public class FavoriteHolidaysController(HolidaysContext holidaysContext, UserCon
         return Ok(userFavorites);
     }
 
-    [HttpPut("AddToFavorites")]
+    [HttpPut("Add")]
     public async Task<ActionResult> AddHolidayToFavorites([FromBody] FavoriteHolidayDTO dto) {
         var preexsitingEntity = await holidaysContext.FavoriteHolidays
             .SingleOrDefaultAsync(h => h.HolidayCountryCode == dto.CountryCode && h.HolidayName == dto.Name && h.UserId == userContext.User.Id);
@@ -43,7 +44,7 @@ public class FavoriteHolidaysController(HolidaysContext holidaysContext, UserCon
         return Ok();
     }
 
-    [HttpDelete("RemoveFromFavorites")]
+    [HttpDelete("Remove")]
     public async Task<ActionResult> RemoveHolidayFromFavorites ([FromBody] FavoriteHolidayDTO dto) {
         var entity = await holidaysContext.FavoriteHolidays
             .SingleOrDefaultAsync(h => h.HolidayCountryCode == dto.CountryCode && h.HolidayName == dto.Name && h.UserId == userContext.User.Id);
