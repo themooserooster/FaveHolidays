@@ -17,6 +17,7 @@ From the repo root, execure `docker compose up` to create and start the MSSQL co
 ### Start The Backend
 
 From `./backend/FavHolidays.Web`, execute `dotnet run` or `dotnet watch run`.
+The backend should run from port 7080 in https.
 
 ### Start The Frontend
 

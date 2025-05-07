@@ -6,10 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FavHolidays.Web.Features.FavoriteHolidays;
 
-[ApiController, Route("FavoriteHolidays")]
+[ApiController, Route("api/FavoriteHolidays")]
 public class FavoriteHolidaysController(HolidaysContext holidaysContext, IUserContext userContext):Controller  {
 
-    [HttpGet()]
+    [HttpGet("All")]
+    public async Task<ActionResult<IEnumerable<FavoriteHolidayDTO>>> GetAllFavorites() {
+        var userFavorites = await holidaysContext.FavoriteHolidays
+            .Where(h => h.Id == userContext.User.Id)
+            .ToListAsync();
+
+        var dtos = userFavorites.Select(h => new FavoriteHolidayDTO {
+            CountryCode = h.HolidayCountryCode,
+            Name = h.HolidayName    
+        });
+
+        return Ok(dtos);
+    }
 
     [HttpGet("ByCountryCode/{countryCode}")]
     public async Task<ActionResult<IEnumerable<FavoriteHolidayDTO>>> GetFavoritesByCountryCode ([FromRoute]string countryCode) {
@@ -44,10 +56,10 @@ public class FavoriteHolidaysController(HolidaysContext holidaysContext, IUserCo
         return Ok();
     }
 
-    [HttpDelete("Remove")]
-    public async Task<ActionResult> RemoveHolidayFromFavorites ([FromBody] FavoriteHolidayDTO dto) {
+    [HttpDelete("Remove/{countryCode}/{name}")]
+    public async Task<ActionResult> RemoveHolidayFromFavorites (string countryCode, string name) {
         var entity = await holidaysContext.FavoriteHolidays
-            .SingleOrDefaultAsync(h => h.HolidayCountryCode == dto.CountryCode && h.HolidayName == dto.Name && h.UserId == userContext.User.Id);
+            .SingleOrDefaultAsync(h => h.HolidayCountryCode == countryCode && h.HolidayName == name && h.UserId == userContext.User.Id);
 
         if (entity is null) return Ok();
 

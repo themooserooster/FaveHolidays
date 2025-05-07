@@ -6,8 +6,8 @@ import {
   TextField,
 } from "@mui/material"
 import { useEffect, useState } from "react"
-import type { Country} from "./holdidaysApi"
-import { holidaysApi } from "./holdidaysApi"
+import type { Country} from "../services/nagerDateApi"
+import { holidaysApi } from "../services/nagerDateApi"
 import type { HolidayCardProps } from "./HolidayCard";
 import { HolidayCard } from "./HolidayCard"
 
