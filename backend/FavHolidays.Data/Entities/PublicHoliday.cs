@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace FavHolidays.Data.Entities;
 
+[PrimaryKey(nameof(Name), nameof(CountryCode))]
 public class PublicHoliday
 {
 
