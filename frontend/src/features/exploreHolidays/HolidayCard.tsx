@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
-import type { PublicHoliday } from "../services/nagerDateApi"
+import type { PublicHoliday } from "../../services/nagerDateApi"
 
 export type HolidayCardProps = {
     holiday: PublicHoliday,

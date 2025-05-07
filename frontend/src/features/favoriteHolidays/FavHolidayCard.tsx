@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, IconButton, Tooltip } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react";
-import type { HolidayDto } from "../services/favHolidaysApi";
+import type { HolidayDto } from "../../services/favHolidaysApi";
 
 export const FavHolidayCard = (props: {
   countryCode:string, 

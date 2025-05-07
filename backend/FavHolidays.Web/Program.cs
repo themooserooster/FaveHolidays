@@ -13,6 +13,16 @@ var configuration = builder.Configuration;
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 
 var holidaysContextConnectionString = configuration.GetConnectionString(nameof(HolidaysContext))
     ?? throw new InvalidOperationException($"Connection string '{nameof(HolidaysContext)}' not found");
@@ -48,6 +58,8 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.EnsureCreated();
     dbContext.Database.Migrate();
 }
+
+app.UseCors("AllowAll");
 
 app.Run();
 

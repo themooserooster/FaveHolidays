@@ -1,5 +1,5 @@
-import favHolidaysApi from "../services/favHolidaysApi"
-import type { HolidayDto } from "../services/favHolidaysApi"
+import favHolidaysApi from "../../services/favHolidaysApi"
+import type { HolidayDto } from "../../services/favHolidaysApi"
 import { useEffect, useState } from "react"
 import { FavHolidayCard } from "./FavHolidayCard"
 import { CircularProgress, Container } from "@mui/material"
